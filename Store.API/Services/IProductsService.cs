@@ -4,5 +4,9 @@ namespace Store.API.Services;
 
 public interface IProductsService
 {
-    IEnumerable<ProductItem> GetProducts();
+    Task<IEnumerable<ProductItem>> GetProducts();
+
+    Task<ProductItem?> GetProductById(Guid productId);
+
+    Task AddProduct(ProductItem productItem);
 }

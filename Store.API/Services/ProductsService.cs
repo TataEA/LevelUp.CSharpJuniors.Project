@@ -1,30 +1,40 @@
-﻿using Store.API.Models;
+﻿using Store.API.DAL.Entities;
+using Store.API.DAL;
+using Store.API.Models;
 
 namespace Store.API.Services;
 
 public sealed class ProductsService : IProductsService
 {
-    private Dictionary<Guid, ProductItem> _products = new();
-    public ProductsService()
-    {
-        InitProduct();
-    }
-    public IEnumerable<ProductItem> GetProducts()
-    {
-        return _products.Values;
-    }
-    private void InitProduct()
-    {
-        var guid1 = Guid.NewGuid();
-        var guid2 = Guid.NewGuid();
-        var guid3 = Guid.NewGuid();
+    private readonly IProductsRepository _productsRepository;
 
-        _products = new Dictionary<Guid, ProductItem>
-            {
-                { guid1, new ProductItem(guid1, "Печенье", "Сдобное")},
-                { guid2, new ProductItem(guid1, "Мармеладки", "Мишки")},
-                { guid3, new ProductItem(guid1, "Шоколад", "С орешками")},
-            };
+    public ProductsService(IProductsRepository productsRepository)
+    {
+        _productsRepository = productsRepository;
     }
-    
+
+    public async Task<IEnumerable<ProductItem>> GetProducts()
+    {
+        var entities = await _productsRepository.GetAll();
+        return entities.Select(ProductItem.FromEntity);
+    }
+
+    public async Task<ProductItem?> GetProductById(Guid productId)
+    {
+        var productEntity = await _productsRepository.GetById(productId);
+        return productEntity == null ? null : ProductItem.FromEntity(productEntity);
+    }
+
+    public async Task AddProduct(ProductItem productItem)
+    {
+        var productEntity = new ProductEntity
+        {
+            Id = productItem.Id,
+            CategoryId = productItem.CategoryId,
+            Name = productItem.Name,
+            Description = productItem.Description
+        };
+
+        await _productsRepository.Create(productEntity);
+    }
 }
