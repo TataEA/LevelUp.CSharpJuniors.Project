@@ -15,14 +15,14 @@ public sealed class ProductsController : ControllerBase
         _productsService = productsService;
     }
 
-    [HttpGet("all")]
+    [HttpGet("allProduct")]
     public async Task<ActionResult<IEnumerable<ProductItem>>> GetProducts()
     {
         var products = await _productsService.GetProducts();
         return Ok(products);
     }
 
-    [HttpGet("{productId}")]
+    [HttpGet("productId")]
     public async Task<ActionResult<ProductItem>> GetById(Guid productId)
     {
         var product = await _productsService.GetProductById(productId);
@@ -30,7 +30,7 @@ public sealed class ProductsController : ControllerBase
     }
 
 
-    [HttpPost("add")]
+    [HttpPost("addProduct")]
     public async Task<IActionResult> AddProduct(ProductItem productItem)
     {
         await _productsService.AddProduct(productItem);

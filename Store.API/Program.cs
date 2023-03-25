@@ -14,10 +14,15 @@ builder.Services.AddSwaggerGen();
 
 // НОВОЕ
 var dbConnString = builder.Configuration.GetConnectionString("Products"); // задавали внутри аппсетигса
+var dbConnStringUsers = builder.Configuration.GetConnectionString("Users");
 
 builder.Services.AddDbContext<ProductsDbContext>(options => options.UseSqlServer(dbConnString));
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
+
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+
 
 var app = builder.Build();
 
