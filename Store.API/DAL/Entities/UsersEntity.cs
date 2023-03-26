@@ -7,6 +7,4 @@ public sealed record UsersEntity
     public string Name { get; init; } = string.Empty;
 
     public bool IsAdmin { get; init; } 
-
-   // public IEnumerable<PropertyValue> Properties { get; set; } = Enumerable.Empty<PropertyValue>();
 }
