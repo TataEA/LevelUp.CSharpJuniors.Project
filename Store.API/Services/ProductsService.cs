@@ -37,4 +37,22 @@ public sealed class ProductsService : IProductsService
 
         await _productsRepository.Create(productEntity);
     }
+
+    public async Task DeleteProduct(Guid id)
+    {
+        await _productsRepository.Delete(id);
+    }
+
+    public async Task UpDate(ProductItem productItem)
+    {
+        var productEntity = new ProductEntity
+        {
+            Id = productItem.Id,
+            CategoryId = productItem.CategoryId,
+            Name = productItem.Name,
+            Description = productItem.Description
+        };
+
+        await _productsRepository.Update(productEntity);
+    }
 }

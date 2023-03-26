@@ -29,11 +29,24 @@ public sealed class ProductsController : ControllerBase
         return product == null ? NotFound() : Ok(product);
     }
 
-
     [HttpPost("addProduct")]
     public async Task<IActionResult> AddProduct(ProductItem productItem)
     {
         await _productsService.AddProduct(productItem);
+        return Ok();
+    }
+
+    [HttpDelete("delProduct")]
+    public async Task<IActionResult> delProduct(Guid id)
+    {
+        await _productsService.DeleteProduct(id);
+        return Ok();
+    }
+
+    [HttpPut("upDateProduct")]
+    public async Task<IActionResult> UpDate(ProductItem productItem)
+    {
+        await _productsService.UpDate(productItem);
         return Ok();
     }
 }

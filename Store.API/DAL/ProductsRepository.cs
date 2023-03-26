@@ -28,4 +28,16 @@ public sealed class ProductsRepository : IProductsRepository
         await _dbContext.Products!.AddAsync(entity); // добавление в слепок БД
         await _dbContext.SaveChangesAsync(); // Сохраняем в БД
     }
+    public async Task Delete(Guid id) 
+    {
+        var  entity = await _dbContext.Products!.FirstOrDefaultAsync(e => e.Id== id);
+        _dbContext.Products!.Remove(entity);
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task Update(ProductEntity entity)
+    {
+        _dbContext.Products!.Update(entity); // добавление в слепок БД
+        await _dbContext.SaveChangesAsync();
+    }
 }
