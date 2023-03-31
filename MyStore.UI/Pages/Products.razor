@@ -6,12 +6,35 @@
 
 
 
-    <h3>Products</h3>
+<h1>Комнатные растения ❤</h1>
+<p><a href="/Create">Добавить растение</a></p>
+ <div class="card shadow mb-4">
+    <!--    <div class="card-header py-3"> -->
+    <!--     </div> -->
+             <div class="card-body">
+             <div class="table-responsive">
+                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                     <thead>
+                         <tr>
+                             <th>Растение</th>
+                             <th>Описание</th>
+                             <th>Цена</th>
+                         </tr>
+                         </thead>
+                         <tbody>
     @foreach (var product in _products)
-    {
-        <li>@($"{product.Id} - {product.Name} - {product.Description}")</li>
-
-    }
+                    {
+                        <tr>
+                            <th>@($"{product.Name}")</th>
+                            <th>@($"{product.Description}")</th>
+                            <th>Office</th>
+                        </tr>
+                    }
+                         </tbody>
+                 </table>
+             </div>
+         </div>
+</div>
 
 @code {
     private IEnumerable<ProductItem> _products = Enumerable.Empty<ProductItem>();
@@ -20,4 +43,8 @@
     {
         _products = await Proxy.GetAllProducts();
     }
+
+    private IEnumerable<ProductItem> _productsgreate = Enumerable.Empty<ProductItem>();
+
+
 }

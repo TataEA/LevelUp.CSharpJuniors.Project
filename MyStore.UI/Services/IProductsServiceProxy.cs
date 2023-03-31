@@ -6,4 +6,5 @@ public interface IProductsServiceProxy
 {
     Task<IEnumerable<ProductItem>> GetAllProducts();
     Task<ProductItem> GetProductById(Guid id);
+    public Task Create(ProductItem product);
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using MyStore.UI.Models;
 
 namespace MyStore.UI.Services;
@@ -23,7 +24,12 @@ public sealed class ProductsServiceProxy : IProductsServiceProxy
 
         return items;
     }
-
+    public async Task Create(ProductItem product)
+    {
+        var requestUri = $"{_endpoints.BaseUrl}{_endpoints.Create}";
+        // requestUri = string.Format(requestUri, product);
+        await _client.PostAsJsonAsync(requestUri, product);
+    }
     public async Task<ProductItem> GetProductById(Guid id)
     {
         var requestUri = $"{_endpoints.BaseUrl}{_endpoints.GetProductById}";
@@ -32,7 +38,6 @@ public sealed class ProductsServiceProxy : IProductsServiceProxy
 
         return item!;
     }
-
     private async Task<T?> MakeGet<T>(string requestUri)
     {
         var request = new HttpRequestMessage

@@ -1,0 +1,12 @@
+﻿@page
+@model MyStore.UI.Pages.CreateModel
+@{
+    ViewData["Title"] = "Добавление нового растения";
+}
+<h2>@ViewData["Title"]</h2>
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div><label>Название растения</label><br /><input asp-for="product1.Name" /></div>
+    <div><label>Описание:</label><br /><input asp-for="product1.Description" /></div>
+    <input type="submit" value="Отправить" />
+</form>
